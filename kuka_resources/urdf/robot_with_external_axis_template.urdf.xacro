@@ -53,6 +53,8 @@
   <xacro:include filename="${robot_support_urdf_dir}/$(arg robot_ros2_control_macro_file)"/>
   <xacro:include filename="${kl_support_urdf_dir}/${kl_model_value}_macro.xacro"/>
   <xacro:include filename="${kl_support_urdf_dir}/$(arg kl_ros2_control_macro_file)"/>
+  <xacro:include filename="$(find kuka_pick_place)/urdf/end_effector.xacro"/>
+  <!-- Added for endeffector by Mehrdad -->
   <!-- ros2 control configuration -->
   <xacro:call macro="${robot_ros2_control_macro_name}" name="$(arg prefix)$(arg composed_model)" driver_version="$(arg driver_version)" client_ip="$(arg client_ip)" client_port="$(arg client_port)" mxa_client_port="$(arg mxa_client_port)" controller_ip="$(arg controller_ip)" prefix="$(arg prefix)" gpio_config="$(arg gpio_config)" mode="$(arg mode)" roundtrip_time="$(arg roundtrip_time)" verify_robot_model="$(arg verify_robot_model)" rsi_xml_config_file="$(arg rsi_xml_config_file)" is_async="$(arg is_async)" async_thread_priority="$(arg async_thread_priority)" async_affinity="$(arg async_affinity)" gazebo_controller_config_path="$(arg gazebo_controller_config_path)">
     <ext_axes_ros2_control_joints>
@@ -71,6 +73,8 @@
   <xacro:call macro="${kl_model_links_macro_name}" prefix="${kl_full_prefix}"/>
   <!-- robot links -->
   <xacro:call macro="${robot_model_macro_name}" prefix="$(arg prefix)" package_name="$(arg robot_support_package)"/>
+  <!-- end effector added by mehrdad-->
+  <xacro:end_effector parent="$(arg prefix)tool0"/>
   <!-- external axis joints -->
   <xacro:call macro="${kl_model_joints_macro_name}" prefix="${kl_full_prefix}" robot_base_link="$(arg prefix)base_link">
     <origin xyz="$(arg x) $(arg y) $(arg z)" rpy="$(arg roll) $(arg pitch) $(arg yaw)"/>
